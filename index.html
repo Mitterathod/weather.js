@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+
+    <div id="main">
+
+        <div id="search">
+            <form method="post" action="/" id="geoform" autocomplete="off">
+                
+                <input type="text" name="city" id="city" placeholder="Enter your city">
+
+                <div id="geolist"></div>
+                
+            </form>
+        </div>
+
+        <div id="forecast">
+        </div>
+    
+    </div>
+
+    <script type="forecast/template" id="forecast-template">
+        <div class="forecast_wrap">
+            <% _.forEach( rows, function(row) { %>
+                <div class="date_heading">
+                    <% let date = new Date(row.dt * 1000)  %>
+                    <%- date.toUTCString() %>
+                </div>
+                <div class="fc_row">
+                    <div>
+                        <span class="param_name">Weather</span>
+                        <span class="param_value">
+                            <span id="img">
+                                <img src="http://openweathermap.org/img/wn/<%- row.weather[0].icon %>.png" alt="<%- row.weather[0].description %>"> 
+                            </span>
+                            <span id="descr"><%- row.weather[0].description %></span>
+                        </span>
+                    </div>
+                    <div>
+                        <span class="param_name">Temp daily</span>
+                        <span class="param_value">
+                            <%- row.temp.day %> &#8451;
+                        </span>
+                    </div>
+                    <div>
+                        <span class="param_name">Temp nightly</span>
+                        <span class="param_value">
+                            <%- row.temp.night %> &#8451;
+                        </span>
+                    </div>
+                    <div>
+                        <span class="param_name">Cloudiness</span>
+                        <span class="param_value">
+                            <%- row.clouds %> %
+                        </span>
+                    </div>
+                    <div>
+                        <span class="param_name">Wind speed</span>
+                        <span class="param_value">
+                            <%- row.wind_speed %> m/s
+                        </span>
+                    </div>
+                </div>
+            <% }) %>
+        </div>
+            
+             
+    </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/lodash@4.17.20/lodash.min.js"></script>
+    <script src="scripts.js"></script>
+
+</body>
+</html>
